@@ -1,0 +1,30 @@
+CREATING BACKUP TABLE + Type Conversion:
+
+creating new table as backup
+
+Changing the data type of a column
+
+CLEANING:
+
+Identifying and handling missing values (might overlap with Type Conversion)
+
+removing unnecessary text from columns (might overlap with Type Conversion)
+
+goods_title
+
+when goods_title starts with number shorting it by using the the texts between 2 commas ','
+
+making the text short as much as possible, removing number with extentions like (pc(s)?|set(s)?|piece(s)|pair(s)?)
+
+lowercase columns
+
+removing double spacing
+
+removing latin or every letter that is not english or a number
+
+FEATURE ENGINEERING:
+
+adding:
+category column
+gender column
+rank_sub - Extracting keywords from product titles and descriptions

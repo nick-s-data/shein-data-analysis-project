@@ -1,0 +1,101 @@
+		-- backup table --
+SELECT * FROM table;
+
+CREATE TABLE table2
+LIKE table;
+
+INSERT INTO table2
+SELECT * FROM table;
+
+SELECT * FROM table2;
+
+
+		-- Changing the data type --
+
+-- find text in int column
+SELECT * FROM table
+WHERE rank_title REGEXP '^[^0-9]';
+
+SELECT * FROM table
+WHERE color_count REGEXP '^[^0-9]';
+
+UPDATE table
+SET rank_title = ''
+WHERE rank_title REGEXP '^[^0-9]';
+
+UPDATE table
+SET color_count = ''
+WHERE color_count REGEXP '^[^0-9]';
+
+-- remove the text from rank_title if needed
+
+-- replacing empty space with null in order to change datatype
+
+UPDATE table
+SET rank_title = null
+WHERE rank_title = '';
+
+UPDATE table
+SET selling_proposition = null
+WHERE selling_proposition = '';
+
+UPDATE table
+SET color_count = null
+WHERE color_count = '';
+
+ALTER TABLE your_table_name
+    MODIFY COLUMN rank_title INT,
+    MODIFY COLUMN selling_proposition INT,
+    MODIFY COLUMN color_count INT UNSIGNED;
+
+		-- CLEANING --
+
+\\SELECT goods_title, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(goods_title,',', 2),',', -1)) AS test FROM table
+WHERE goods_title REGEXP '^[0-9]+ ?(pc(s)?|set(s)?|piece(s)|pair(s)?|pairs|pcs large|pcs\/set),' 
+ORDER BY length(test);
+
+\\UPDATE table
+SET goods_title = TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(goods_title,',', 2),',', -1))
+WHERE goods_title REGEXP '^[0-9]+ ?(pc(s)?|set(s)?|piece(s)|pair(s)?|pairs|pcs large|pcs\/set),' ;
+
+\\SELECT goods_title, TRIM(SUBSTRING_INDEX(goods_title,',', 1)) AS test FROM table
+WHERE goods_title REGEXP '^[0-9]+'
+ORDER BY length(test);
+
+\\UPDATE table
+SET goods_title = TRIM(SUBSTRING_INDEX(goods_title,',', 1))
+WHERE goods_title REGEXP '^[0-9]+' ;
+
+-- removing unnecessary text
+SELECT goods_title, TRIM(REGEXP_REPLACE(goods_title,'\\b\\S*[0-9]+\\S*\\b','')) AS goods_title FROM table
+WHERE goods_title REGEXP '[0-9]+'
+ORDER BY length(goods_title);
+
+UPDATE table
+SET goods_title = TRIM(REGEXP_REPLACE(goods_title,'\\b\\S*[0-9]+\\S*\\b',''))
+WHERE goods_title REGEXP '[0-9]+';
+
+-- lowercase
+
+UPDATE table
+SET goods_title = LOWER(goods_title);
+
+-- remove double spacing
+
+SELECT goods_title, TRIM(REGEXP_REPLACE(goods_title, ' {2,}', ' ')) FROM table
+WHERE goods_title REGEXP ' {2,}';
+
+UPDATE table 
+SET goods_title = TRIM(REGEXP_REPLACE(goods_title, ' {2,}', ' '))
+WHERE goods_title REGEXP ' {2,}';
+
+-- remove non english or number letters
+
+SELECT goods_title, TRIM(REGEXP_REPLACE(goods_title, '[^a-zA-Z0-9 ]', '')) AS cleaned_code FROM table
+WHERE goods_title REGEXP '[^a-zA-Z0-9 ]';
+
+UPDATE table
+SET goods_title = TRIM(REGEXP_REPLACE(goods_title, '[^a-zA-Z0-9 ]', ''))
+WHERE goods_title REGEXP '[^a-zA-Z0-9 ]';
+
+		-- FEATURE ENGINEERING --
