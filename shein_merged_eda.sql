@@ -42,6 +42,17 @@ UPDATE shein_merged_categories
 SET rank_sub = 'accessories'
 WHERE rank_sub = 'accessory';
 
+SELECT rank_sub, goods_title FROM shein_merged_categories
+WHERE goods_title REGEXP '\\S+ clips|\\S+ sunglasses|\\S+ bracelet|\\S+ hair' AND goods_title 
+NOT REGEXP "tshirt|shirt|sleeve|short|printed|top|dress"
+AND rank_sub REGEXP 'clothing';
+
+-- Update the inconsistent value
+UPDATE shein_merged_categories
+SET rank_sub = 'accessories'
+WHERE goods_title REGEXP '\\S+ clips|\\S+ sunglasses|\\S+ bracelet|\\S+ hair' AND goods_title
+NOT REGEXP "tshirt|shirt|sleeve|short|printed|top|dress" AND rank_sub REGEXP 'clothing';
+
 -- Final check after merging and cleaning
 SELECT * FROM shein_merged_categories;
 
@@ -194,7 +205,7 @@ SELECT
     selling_proposition,
     ROUND(units_per_price,2) 'units_per_price' -- volume efficiency
 FROM value_scores
-WHERE rn = 1 -- Filter for the highest efficiency item per specific gender
+WHERE rn BETWEEN 1 AND 10 -- Filter for the highest efficiency item per specific gender
 ORDER BY units_per_price DESC;
 /*
 return on investment conclusion:
@@ -251,7 +262,7 @@ ORDER BY
     
 /* conclusion:
 	color_count that higher than 6
-	has more engagement/buyers
+	has nearly the same engagement/buyers
 */ 
 
 -- 3. In 'swimwear' and 'underwear' subcategories, which gender segments have the lowest discount but highest selling_proposition, suggesting untapped premium potential?
