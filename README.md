@@ -114,7 +114,7 @@ This project is a complete, production-grade data pipeline that transforms 36,00
 │   ├── shein_jewelry_and_accessories.sql
 │   ├── shein_shoes.sql
 │   ├── shein_sports_and_outdoors.sql
-│   └── shein_merged_eda.sql               ← Final merged table creation and all 5 business questions + insights 
+│   └── shein_merged_eda.sql               ← Final merged table creation, descriptive statistics and all 5 business questions + insights 
 └── README.md                              ← You are here
 }
 ```
