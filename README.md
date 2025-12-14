@@ -2,7 +2,7 @@
 # SHEIN Product Data Cleaning & Business Intelligence
 
 
-This project is a complete, production-grade data pipeline that transforms 36,000+ raw, messy SHEIN product records (scraped from Kaggle) across 12 categories into clean, analysis-ready tables and delivers five high-impact, stakeholder-ready business recommendations.
+This project is a complete, production-grade data pipeline that transforms 36,000+ raw, messy SHEIN product records (scraped from Kaggle) across 11 categories into clean, analysis-ready tables and delivers five high-impact, stakeholder-ready business recommendations.
 
 
 ## Dataset
